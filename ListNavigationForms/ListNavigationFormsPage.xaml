@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage 
+		xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		xmlns:local="clr-namespace:ListNavigationForms" 
+		x:Class="ListNavigationForms.ListNavigationFormsPage"
+		Title = "Binding Root From ViewCell Element">
+
+	<ContentPage.Padding>
+		<OnPlatform x:TypeArguments="Thickness" iOS="0,20,0,0" />
+	</ContentPage.Padding>
+	
+	<StackLayout>
+		<Label FontSize="14" Text="{Binding Header}" />
+		<ListView x:Name="ThingsListView" ItemsSource="{Binding BunchOfThings}" RowHeight="70">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<StackLayout>
+							<Label Text="{Binding Name}" FontSize="12" HorizontalOptions="FillAndExpand" />
+							<Label Text="{Binding Description}" FontSize="10" HorizontalOptions="FillAndExpand" />
+							<Button
+								BackgroundColor="Navy" 
+								WidthRequest="90"
+								HeightRequest="25"
+								HorizontalOptions="Start"
+								Text="{Binding BindingContext.ButtonListName, Source={x:Reference ThingsListView}}"
+								Command="{Binding BindingContext.ClickCommand, Source={x:Reference ThingsListView}}"
+								CommandParameter="{Binding}"
+								/>
+						</StackLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+		<Label FontSize="14" Text="{Binding Footer}" />
+	</StackLayout>
+
+</ContentPage>
